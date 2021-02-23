@@ -1,0 +1,75 @@
+doctype html
+html
+	head
+		title Matcha | #{title}
+		include header_items
+		link(rel='stylesheet', href='/index.css')
+		link(rel='stylesheet', href='/sweetalert2.css')
+	body
+		include navbar
+
+		.container.text-center
+			h1.mt-white.text-center.mt-5.display-2#heading There's no place like 127.0.0.1
+			if !userLogged
+				a.rounded-pill.btn.btn-lg.mbg-white.mx-1.mt-5(href="/user/login") Login
+				a.rounded-pill.btn.btn-lg.mbg-white.mx-1.mt-5(href="/user/register") Join Us
+			//- button#JoinUs.rounded-pill.btn.btn-lg.mbg-white.mx-auto.mt-5(href="#") Join Us POP
+			//- button#ToastMe.rounded-pill.btn.btn-lg.mbg-white.mx-auto.mt-5(href="#" onclick="") ToastTest
+
+			.card.mx-auto.mt-5(style='max-width: 800px;')
+				h4.card-header Reviews:
+				img.img-fluid(src="/happy.jpg", alt="Happy Couple")
+				.card-body
+					h3.card-title Happy Couple: 11/10
+
+
+		include footer
+
+
+			//- SCRIPTS
+		//- script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+		include js_includes.pug
+		if notification === 'valid'
+			script.
+				swal(
+					'Success!',
+					'Email confirmed.',
+					'success'
+				)
+		if notification === 'changed'
+			script.
+				swal(
+					'Success!',
+					'Password changed. Please log in',
+					'success'
+				)
+		if notification === 'invalid'
+			script.
+				swal(
+					'Invalid!',
+					'Invalid code given in url.',
+					'error'
+				)
+		if notification === 'emailed'
+			script.
+				swal(
+					'Success!',
+					'An email with further instructions has been sent.',
+					'success'
+				)
+		if notification === 'incomplete'
+			script.
+				swal(
+					'Incomplete',
+					'You have not completed your account information',
+					'error'
+				)
+		
+		//- script.
+		//- 	$( document ).ready(function() {
+		//- 		$("#ToastMe").click(function() {
+		//- 			$('.toast').toast('show');
+		//- 		});
+		//- 	});
+

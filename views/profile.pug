@@ -1,0 +1,149 @@
+doctype html
+html
+	head
+		title Matcha | #{title}
+		include header_items.pug
+		link(rel='stylesheet', href='/profile.css')
+	body
+		include navbar.pug
+
+		.container
+			h1.mt-white.text-center.mt-5.display-3#heading Profile
+			
+		.container.mx-auto.my-3(style='max-width: 900px;')
+			.card.mx-auto(style='max-width: 900px;')
+				#carouselControls.carousel.slide(data-ride='carousel', data-interval="false")
+					.carousel-inner
+						.carousel-item.active(data-interval="false")
+							if imageExists
+								img.img-fluidd-block.w-100(src=userImage, alt='User Image')
+							else
+								img.img-fluidd-block.w-100(src='/images.png', alt='No Image Available')
+						if imageArray
+							each value in imageArray
+								if value != userImage
+									.carousel-item(data-interval="false")
+										img.d-block.w-100(src=value, alt='User Image')
+					if !sameUser
+						a.carousel-control-prev(href='#carouselControls', role='button', data-slide='prev')
+							span.carousel-control-prev-icon(aria-hidden='true')
+							span.sr-only Previous
+						a.carousel-control-next(href='#carouselControls', role='button', data-slide='next')
+							span.carousel-control-next-icon(aria-hidden='true')
+							span.sr-only Next 
+	
+				.card-body
+					if !sameUser
+						if (!userIsOnline)
+							small#lastOnline
+								i.fa.mx-2.text-danger.fa-circle
+								| Last Seen: #{userLastOnline}
+
+						else
+							small#lastOnline
+								i.fa.mx-2.text-success.fa-circle
+								| Online
+					hr
+					h1.display-4.card-title.text-capitalize #{userFirstName} #{userLastName}
+					if liked == 1
+						h5.card-subtitle.mb-2
+							| This user has liked you!
+					if !sameUser
+						.row.mx-auto
+							button#BtnLike.btn.btn-success(value=username, onclick='likeUser(this.value)')
+								i.fa.fa-heart.mr-2
+								| Like 
+							button#BtnDislike.btn.btn-danger(value=username, onclick='dislikeUser(this.value)')
+								i.fa.fa-thumbs-down.mr-2
+								| Dislike 
+							button#BtnReport.btn.btn-info(value=username, onclick='reportUser(this.value)')
+								i.fa.fa-exclamation-triangle.mr-2
+								| Report 
+							button#BtnBlock.btn.btn-warning(value=username, onclick='blockUser(this.value)')
+								i.fa.fa-ban.mr-2
+								| Block 
+					hr
+
+					h4.card-subtitle.mb-2
+						i.fa.mx-2.fa-birthday-cake
+						|  Age: #{userAge}
+					h4.card-subtitle.mb-2
+						i.fa.mx-2.fa-thumbs-up.text-success
+						|  Likes: #{userLikes}
+					h4.card-subtitle.mb-2
+						i.fa.mx-2.fa-trophy.text-warning
+						| Fame Rating: #{userFame}
+					hr
+					
+					label.h4 I am:
+					if userOrientation === 'hetero'
+						p
+							|  Heterosexual, #{userGender}
+					else if userOrientation === 'homo'
+						p
+							|  Homosexual, #{userGender}
+					else
+						p
+							|  Bisexual, #{userGender}
+					
+					label.h4 Looking For:
+					if userOrientation === 'hetero'
+						if userGender === 'Male'
+							p
+								i.fa.mx-2.fa-female.pink
+								|  Women 
+						else
+							p
+								i.fa.mx-2.fa-male.blue
+								|  Men
+					else if userOrientation === 'homo'
+						if userGender === 'Male'
+							p
+								i.fa.mx-2.fa-male.blue
+								|  Men
+						else
+							p
+								i.fa.mx-2.fa-female.pink
+								|  Women
+					else
+						p
+							i.fa.ml-2.fa-male.blue
+							i.fa.mr-2.fa-female.pink
+							|  Men or Women
+					if(sameUser != 1)
+						label.h4 Distance:
+						if distance === 9999
+							p This user has not set their location!
+						else
+							p
+								i.fa.mx-2.fa-map-marker.text-danger
+								| #{distance}km
+
+					hr
+					if !sameUser
+					
+						h4.card-title Interests
+						if userInterests === 0
+							p This user currently has no Interests set!
+						else
+							each val in userInterests
+								span.badge.badge-pill.badge-primary.mx-1 #{val.interest}
+						hr
+
+					h4.card-title Bio
+					if userBio === 0
+						p.card-text This user currently has no Bio set!
+					else
+						p.card-text
+							| #{userBio}
+
+					if sameUser == 1
+						hr
+						a#EditProfile.btn.btn-success.btn-block.btn-lg(href='/user/account') Edit Profile
+
+		include footer.pug
+
+			//- SCRIPTS
+		include js_includes.pug
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js")
+		script(src="/profileActions.js")

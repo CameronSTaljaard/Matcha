@@ -1,0 +1,14 @@
+doctype html
+html
+	head
+		title Matcha | #{title}
+		include header_items.pug
+		link(rel="stylesheet", href="/error.css")
+	body
+		#main
+			.fof
+				p#err.display-2.font-weight-bold Error 404
+				p.display-4 ¯\_(ツ)_/¯
+				a.rounded-pill.btn.btn-lg.mbg-white.mx-auto.mt-5(href="/") Take Me Home
+
+		include js_includes.pug
