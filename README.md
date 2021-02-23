@@ -21,17 +21,17 @@ This project was completed in a team of 4. I worked alongside:
 	MAMP
 	MySQL
 
-- Frontend - styling.
+- Frontend - styling:
 	Bootstrap
 	PUG
 	HTML
 	CSS
 
-- Frontend - functionality.
+- Frontend - functionality:
 	JavaScript
 	AJAX
 
-- Backend
+- Backend:
 	NodeJS
 
 ## Requirements:
